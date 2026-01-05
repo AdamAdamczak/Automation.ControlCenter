@@ -1,0 +1,6 @@
+@Automation.ControlCenter_HostAddress = http://localhost:5081
+
+GET {{Automation.ControlCenter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

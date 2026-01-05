@@ -1,0 +1,31 @@
+﻿@page
+@model Automation.ControlCenter.Dashboard.Pages.Processes.IndexModel
+
+<h1>Processes</h1>
+
+@if (!Model.Processes.Any())
+{
+    <p>No processes found.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Process</th>
+                <th>Status</th>
+                <th>Started At (UTC)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var process in Model.Processes)
+            {
+                <tr>
+                    <td>@process.ProcessName</td>
+                    <td>@process.Status</td>
+                    <td>@process.StartedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
