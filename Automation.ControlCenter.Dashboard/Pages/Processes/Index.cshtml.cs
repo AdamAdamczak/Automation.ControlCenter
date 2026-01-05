@@ -1,25 +1,18 @@
-using Automation.ControlCenter.Infrastructure.Persistence;
-using Automation.ControlCenter.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace Automation.ControlCenter.Dashboard.Pages.Processes;
 
 public class IndexModel : PageModel
 {
-    private readonly ProcessDbContext _dbContext;
+    public int RunningCount { get; private set; }
+    public int CompletedCount { get; private set; }
+    public int FailedCount { get; private set; }
 
-    public List<ProcessInstance> Processes { get; private set; } = [];
-
-    public IndexModel(ProcessDbContext dbContext)
+    public void OnGet()
     {
-        _dbContext = dbContext;
-    }
-
-    public async Task OnGetAsync()
-    {
-        Processes = await _dbContext.Processes
-            .OrderByDescending(p => p.StartedAt)
-            .ToListAsync();
+        // Temporary hardcoded values for UI testing
+        RunningCount = 2;
+        CompletedCount = 5;
+        FailedCount = 1;
     }
 }

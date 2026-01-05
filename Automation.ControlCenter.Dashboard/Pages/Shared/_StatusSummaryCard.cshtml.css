@@ -1,0 +1,28 @@
+/* Summary card container */
+.summary - card {
+    background - color: var(--color - surface);
+border - radius: 8px;
+padding: 16px;
+    min - width: 160px;
+}
+
+/* Card title */
+.summary - card - title {
+    font - size: 12px;
+color: var(--color - text - muted);
+    text - transform: uppercase;
+    margin - bottom: 8px;
+}
+
+/* Main numeric value */
+.summary - card - value {
+    font - size: 28px;
+    font - weight: 600;
+}
+
+/* Status label */
+.summary - card - status {
+    margin - top: 8px;
+    font - size: 12px;
+    font - weight: 600;
+}

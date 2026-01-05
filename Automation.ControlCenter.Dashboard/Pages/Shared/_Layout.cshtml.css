@@ -46,3 +46,21 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+/* Header layout */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Navigation links */
+.app-nav a {
+    margin-left: 16px;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 14px;
+}
+
+    .app-nav a:hover {
+        color: var(--color-text-primary);
+    }

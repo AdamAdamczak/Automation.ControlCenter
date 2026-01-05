@@ -1,31 +1,29 @@
 ﻿@page
 @model Automation.ControlCenter.Dashboard.Pages.Processes.IndexModel
+@using Automation.ControlCenter.Dashboard.Models.Dashboard
 
-<h1>Processes</h1>
+<div class="summary-grid">
+    @await Html.PartialAsync(
+        "_StatusSummaryCard",
+        new StatusSummaryCardViewModel
+        {
+            Title = "Running",
+            Count = Model.RunningCount,
+        })
 
-@if (!Model.Processes.Any())
-{
-    <p>No processes found.</p>
-}
-else
-{
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Process</th>
-                <th>Status</th>
-                <th>Started At (UTC)</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var process in Model.Processes)
-            {
-                <tr>
-                    <td>@process.ProcessName</td>
-                    <td>@process.Status</td>
-                    <td>@process.StartedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+    @await Html.PartialAsync(
+        "_StatusSummaryCard",
+        new StatusSummaryCardViewModel
+        {
+            Title = "Completed",
+            Count = Model.CompletedCount,
+        })
+
+    @await Html.PartialAsync(
+        "_StatusSummaryCard",
+        new StatusSummaryCardViewModel
+        {
+            Title = "Failed",
+            Count = Model.FailedCount,
+        })
+</div>
