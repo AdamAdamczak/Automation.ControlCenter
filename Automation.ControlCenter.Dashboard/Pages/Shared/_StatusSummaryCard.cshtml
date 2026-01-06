@@ -1,6 +1,6 @@
 ﻿@model Automation.ControlCenter.Dashboard.Models.Dashboard.StatusSummaryCardViewModel
 
-<div class="summary-card">
+<div class="summary-card @(Model.isActive ? "summary-card-active" : "")">
     <div class="summary-card-title">
         @Model.Title
     </div>

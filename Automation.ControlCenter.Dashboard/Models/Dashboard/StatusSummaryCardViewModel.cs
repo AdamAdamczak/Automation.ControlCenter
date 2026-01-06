@@ -4,4 +4,5 @@ public class StatusSummaryCardViewModel
 {
     public string Title { get; init; } = string.Empty;
     public int Count { get; init; }
+    public bool isActive { get; init; }
 }

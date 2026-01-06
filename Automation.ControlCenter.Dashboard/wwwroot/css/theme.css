@@ -53,3 +53,12 @@ body {
     padding: 16px;
     min-width: 160px;
 }
+/* Summary card link wrapper */
+.summary-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+/* Active summary card */
+.summary-card-active {
+    outline: 2px solid var(--color-primary);
+}

@@ -3,27 +3,46 @@
 @using Automation.ControlCenter.Dashboard.Models.Dashboard
 
 <div class="summary-grid">
-    @await Html.PartialAsync(
-        "_StatusSummaryCard",
-        new StatusSummaryCardViewModel
+
+    <a asp-page="/Processes/Index"
+       asp-route-status="Running"
+       class="summary-card-link">
+        @await Html.PartialAsync(
+                 "_StatusSummaryCard",
+                 new StatusSummaryCardViewModel
         {
             Title = "Running",
             Count = Model.RunningCount,
+            isActive = Model.SelectedStatus == "Running"
         })
+    </a>
 
-    @await Html.PartialAsync(
-        "_StatusSummaryCard",
-        new StatusSummaryCardViewModel
+    <a asp-page="/Processes/Index"
+       asp-route-status="Completed"
+       class="summary-card-link">
+        @await Html.PartialAsync(
+                 "_StatusSummaryCard",
+                 new StatusSummaryCardViewModel
         {
             Title = "Completed",
             Count = Model.CompletedCount,
-        })
+        isActive = Model.SelectedStatus == "Completed"
 
-    @await Html.PartialAsync(
-        "_StatusSummaryCard",
-        new StatusSummaryCardViewModel
+        })
+    </a>
+
+    <a asp-page="/Processes/Index"
+       asp-route-status="Failed"
+       class="summary-card-link">
+        @await Html.PartialAsync(
+                 "_StatusSummaryCard",
+                 new StatusSummaryCardViewModel
         {
             Title = "Failed",
             Count = Model.FailedCount,
+            isActive = Model.SelectedStatus == "Failed"
+
         })
+    </a>
+
 </div>
