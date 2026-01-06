@@ -45,4 +45,27 @@
         })
     </a>
 
+    @if(!Model.Processes.Any())
+    {
+    <p>No processes found for selected status.</p>
+    }
+    else
+    {
+    <table class="process-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Started</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (var process in Model.Processes)
+                {
+                    @await Html.PartialAsync("_ProcessTableRow", process)
+                }   
+        </tbody>
+    </table>
+    }
 </div>

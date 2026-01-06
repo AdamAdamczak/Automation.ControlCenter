@@ -62,3 +62,21 @@ body {
 .summary-card-active {
     outline: 2px solid var(--color-primary);
 }
+/* Process table */
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+    .process-table th {
+        text-align: left;
+        font-size: 12px;
+        color: var(--color-text-muted);
+        padding-bottom: 8px;
+    }
+
+    .process-table td {
+        padding: 8px 0;
+        border-top: 1px solid #1e293b;
+    }

@@ -1,0 +1,19 @@
+﻿@model Automation.ControlCenter.Dashboard.Models.Processes.ProcessListItemViewModel
+
+<tr>
+    <td>@Model.Name</td>
+
+    <td>
+        <span class="status-@Model.Status.ToLower()">
+            @Model.Status
+        </span>
+    </td>
+
+    <td>
+        @Model.StartTime.ToString("HH:mm:ss")
+    </td>
+
+    <td>
+        @(Model.Duration?.ToString(@"mm\:ss") ?? "-")
+    </td>
+</tr>
