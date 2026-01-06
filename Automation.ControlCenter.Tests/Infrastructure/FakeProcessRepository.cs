@@ -1,4 +1,4 @@
-﻿using Automation.ControlCenter.Infrastructure.Persistence;
+﻿using Automation.ControlCenter.Domain;
 using Automation.ControlCenter.Models;
 
 namespace Automation.ControlCenter.Tests.Infrastructure;

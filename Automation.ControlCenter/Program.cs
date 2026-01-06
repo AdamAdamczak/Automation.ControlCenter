@@ -38,6 +38,11 @@ builder.Services.AddDbContext<ProcessDbContext>(options =>
 
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ProcessDbContext>();
+    db.Database.EnsureCreated();
+}
 app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseMiddleware<ApiKeyMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();

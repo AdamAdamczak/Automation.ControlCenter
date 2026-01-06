@@ -1,12 +1,12 @@
 ﻿using Automation.ControlCenter.DTOs;
 using Automation.ControlCenter.Infrastructure;
-using Automation.ControlCenter.Models;
 using Automation.ControlCenter.Services.Implementations;
 using Automation.ControlCenter.Infrastructure.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 using Automation.ControlCenter.Tests.Infrastructure;
+using Automation.ControlCenter.Domain;
 
 public class ProcessServiceTests
 {
@@ -16,8 +16,8 @@ public class ProcessServiceTests
     {
         var repository = new FakeProcessRepository();
         var logger = NullLogger<ProcessService>.Instance;
-
-        _service = new ProcessService(repository, logger);
+        var stateService = new ProcessStateService();
+        _service = new ProcessService(repository, logger, stateService);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class ProcessServiceTests
 
         // Assert
         result.ProcessId.Should().NotBeEmpty();
-        result.Status.Should().Be("Started");
+        result.Status.Should().Be("Queued");
     }
     [Fact]
     public void GetStatus_ShouldReturnStarted_WhenProcessExists()
@@ -53,7 +53,7 @@ public class ProcessServiceTests
         var status = _service.GetStatus(result.ProcessId);
 
         // Assert
-        status.Should().Be(ProcessStatus.Started);
+        status.Should().Be(ProcessStatus.Queued);
     }
     [Fact]
     public void GetStatus_ShouldThrow_WhenProcessDoesNotExist()
