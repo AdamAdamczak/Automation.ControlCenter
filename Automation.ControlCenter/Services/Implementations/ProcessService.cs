@@ -1,7 +1,7 @@
-﻿using Automation.ControlCenter.DTOs;
+﻿using Automation.ControlCenter.Domain;
+using Automation.ControlCenter.DTOs;
 using Automation.ControlCenter.Infrastructure;
 using Automation.ControlCenter.Infrastructure.Exceptions;
-using Automation.ControlCenter.Infrastructure.Persistence;
 using Automation.ControlCenter.Models;
 using Automation.ControlCenter.Services.Interfaces;
 
@@ -11,12 +11,16 @@ public class ProcessService : IProcessService
 {
     private readonly IProcessRepository _repository;
     private readonly ILogger<ProcessService> _logger;
+    ProcessStateService _processStateService;
     public ProcessService(
         IProcessRepository repository,
-        ILogger<ProcessService> logger)
+        ILogger<ProcessService> logger,
+         ProcessStateService processStateService
+        )
     {
         _repository = repository;
         _logger = logger;
+        _processStateService = processStateService;
     }
 
     public StartProcessResponse StartProcess(StartProcessRequest request)
@@ -25,7 +29,7 @@ public class ProcessService : IProcessService
         {
             Id = Guid.NewGuid(),
             ProcessName = request.ProcessName,
-            Status = ProcessStatus.Started,
+            Status = ProcessStatus.Queued,
             StartedAt = DateTime.UtcNow
         };
 
@@ -60,35 +64,26 @@ public class ProcessService : IProcessService
 
     public void UpdateStatus(Guid processId, ProcessStatus newStatus)
     {
-        var process = _repository.Get(processId);
+        var process = _repository.Get(processId)
+            ?? throw new ProcessNotFoundException(processId);
 
-        if (process == null)
+        try
         {
-            throw new ProcessNotFoundException(processId);
+            _processStateService.ChangeStatus(process, newStatus);
         }
-
-        if (!IsTransitionAllowed(process.Status, newStatus))
+        catch (InvalidStatusTransitionException ex)
         {
             _logger.LogWarning(
+                ex,
                 "Invalid status transition. ProcessId={ProcessId}, From={From}, To={To}",
                 process.Id,
                 process.Status,
                 newStatus);
-            throw new InvalidStatusTransitionException(
-            process.Status,
-            newStatus);
+
+            throw;
         }
 
-        process.Status = newStatus;
-    }
-    private static bool IsTransitionAllowed(ProcessStatus current, ProcessStatus next)
-    {
-        return current switch
-        {
-            ProcessStatus.Started => next == ProcessStatus.Running,
-            ProcessStatus.Running => next is ProcessStatus.Completed or ProcessStatus.Failed,
-            _ => false
-        };
+        _repository.Update(process);
     }
 }
 

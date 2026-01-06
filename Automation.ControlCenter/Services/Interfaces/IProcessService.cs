@@ -1,5 +1,5 @@
-﻿using Automation.ControlCenter.DTOs;
-using Automation.ControlCenter.Models;
+﻿using Automation.ControlCenter.Domain;
+using Automation.ControlCenter.DTOs;
 
 namespace Automation.ControlCenter.Services.Interfaces;
 

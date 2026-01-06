@@ -1,3 +1,4 @@
+using Automation.ControlCenter.Domain;
 using Automation.ControlCenter.Infrastructure;
 using Automation.ControlCenter.Infrastructure.Middleware;
 using Automation.ControlCenter.Infrastructure.Persistence;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<IProcessService, ProcessService>();
+builder.Services.AddScoped<ProcessStateService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

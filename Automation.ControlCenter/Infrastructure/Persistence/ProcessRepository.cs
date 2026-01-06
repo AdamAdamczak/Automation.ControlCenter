@@ -1,4 +1,5 @@
-﻿using Automation.ControlCenter.Models;
+﻿using Automation.ControlCenter.Domain;
+using Automation.ControlCenter.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Automation.ControlCenter.Infrastructure.Persistence;

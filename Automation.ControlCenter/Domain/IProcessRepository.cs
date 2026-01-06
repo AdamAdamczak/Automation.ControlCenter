@@ -1,6 +1,6 @@
 ﻿using Automation.ControlCenter.Models;
 
-namespace Automation.ControlCenter.Infrastructure.Persistence;
+namespace Automation.ControlCenter.Domain;
 
 public interface IProcessRepository
 {

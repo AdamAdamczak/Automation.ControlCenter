@@ -1,4 +1,6 @@
-﻿namespace Automation.ControlCenter.Models;
+﻿using Automation.ControlCenter.Domain;
+
+namespace Automation.ControlCenter.Models;
 
 public class ProcessInstance
 {

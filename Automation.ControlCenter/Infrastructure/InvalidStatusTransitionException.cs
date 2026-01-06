@@ -1,4 +1,4 @@
-﻿using Automation.ControlCenter.Models;
+﻿using Automation.ControlCenter.Domain;
 
 namespace Automation.ControlCenter.Infrastructure.Exceptions;
 
