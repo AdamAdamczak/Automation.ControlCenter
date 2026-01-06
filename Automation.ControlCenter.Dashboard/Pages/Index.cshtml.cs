@@ -1,20 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
+using Automation.ControlCenter.Dashboard.DTOs.Dashboard;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Http.Json;
 
-namespace Automation.ControlCenter.Dashboard.Pages
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly HttpClient _http;
+
+    public DashboardOverviewDto Overview { get; private set; } = new();
+
+    public IndexModel(HttpClient http)
     {
-        private readonly ILogger<IndexModel> _logger;
+        _http = http;
+    }
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-
-        }
+    public async Task OnGet()
+    {
+        Overview = await _http.GetFromJsonAsync<DashboardOverviewDto>(
+            "/api/dashboard/overview")
+            ?? new DashboardOverviewDto();
     }
 }

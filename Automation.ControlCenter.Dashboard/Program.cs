@@ -5,6 +5,12 @@ using System.IO;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient("Api", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7253"); 
+});
+builder.Services.AddScoped(sp =>
+    sp.GetRequiredService<IHttpClientFactory>().CreateClient("Api"));
 // Resolve database path from configuration
 var connectionString = builder.Configuration.GetConnectionString("Default");
 // Resolve solution root directory (works regardless of bin/debug structure)

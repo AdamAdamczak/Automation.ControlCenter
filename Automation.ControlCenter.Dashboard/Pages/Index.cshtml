@@ -1,10 +1,50 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Automation Control Center</h1>
+
+<div class="summary-grid">
+    <div class="card queued">
+        <span class="label">Queued</span>
+        <span class="value">@Model.Overview.QueuedCount</span>
+    </div>
+
+    <div class="card running">
+        <span class="label">Running</span>
+        <span class="value">@Model.Overview.RunningCount</span>
+    </div>
+
+    <div class="card completed">
+        <span class="label">Completed</span>
+        <span class="value">@Model.Overview.CompletedCount</span>
+    </div>
+
+    <div class="card failed">
+        <span class="label">Failed</span>
+        <span class="value">@Model.Overview.FailedCount</span>
+    </div>
 </div>
+
+<table class="process-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Started</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Overview.Processes)
+        {
+            <tr>
+                <td>@p.ProcessName</td>
+                <td>
+                    <span class="status @p.Status.ToString().ToLower()">
+                        @p.Status
+                    </span>
+                </td>
+                <td>@p.StartedAt.ToLocalTime()</td>
+            </tr>
+        }
+    </tbody>
+</table>
