@@ -44,7 +44,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseMiddleware<ApiKeyMiddleware>();
+//app.UseMiddleware<ApiKeyMiddleware>();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

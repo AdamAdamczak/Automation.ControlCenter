@@ -1,5 +1,6 @@
 ﻿using Automation.ControlCenter.Domain;
 using Automation.ControlCenter.DTOs;
+using Automation.ControlCenter.DTOs.Dashboard;
 using Automation.ControlCenter.Infrastructure;
 using Automation.ControlCenter.Infrastructure.Exceptions;
 using Automation.ControlCenter.Models;
@@ -85,6 +86,29 @@ public class ProcessService : IProcessService
 
         _repository.Update(process);
     }
+    public DashboardOverviewDto GetDashboardOverview()
+    {
+        var processes = _repository.GetAll();
+
+        return new DashboardOverviewDto
+        {
+            QueuedCount = processes.Count(p => p.Status == ProcessStatus.Queued),
+            RunningCount = processes.Count(p => p.Status == ProcessStatus.Running),
+            CompletedCount = processes.Count(p => p.Status == ProcessStatus.Completed),
+            FailedCount = processes.Count(p => p.Status == ProcessStatus.Failed),
+
+            Processes = processes
+                .OrderByDescending(p => p.StartedAt)
+                .Select(p => new ProcessListItemDto
+                {
+                    ProcessId = p.Id,
+                    ProcessName = p.ProcessName,
+                    Status = p.Status,
+                    StartedAt = p.StartedAt
+                })
+                .ToList()
+        };
+    }   
 }
 
 

@@ -31,4 +31,9 @@ public class ProcessRepository : IProcessRepository
         _context.Processes.Update(process);
         _context.SaveChanges();
     }
+    public IEnumerable<ProcessInstance> GetAll()
+    {
+        return _context.Processes.AsNoTracking().ToList();
+    }
+
 }
